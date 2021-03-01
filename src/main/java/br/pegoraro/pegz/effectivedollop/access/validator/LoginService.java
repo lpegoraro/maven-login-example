@@ -5,6 +5,9 @@ import br.pegoraro.pegz.effectivedollop.access.model.LoginAttempt;
 import br.pegoraro.pegz.effectivedollop.access.model.LoginStatus;
 import br.pegoraro.pegz.effectivedollop.access.model.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -12,7 +15,7 @@ import java.util.Map;
 
 @Slf4j
 @Service
-public class LoginService {
+public class LoginService implements UserDetailsService {
 
   private Map<String, User> inMemoryUserDb;
   private LoginValidator loginValidator;
@@ -20,6 +23,11 @@ public class LoginService {
   public LoginService(LoginValidator loginValidator) {
     this.loginValidator = loginValidator;
     this.inMemoryUserDb = new HashMap<>();
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+    return inMemoryUserDb.get(login);
   }
 
   public LoginAttempt login(Login login) {

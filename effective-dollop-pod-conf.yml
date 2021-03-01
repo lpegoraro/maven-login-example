@@ -1,0 +1,71 @@
+# Generation of Kubernetes YAML is still under development!
+#
+# Save the output of this file and use kubectl create -f to import
+# it into Kubernetes.
+#
+# Created with podman-2.2.1
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2021-03-01T00:42:10Z"
+  labels:
+    app: effective-dollop
+  name: effective-dollop
+spec:
+  containers:
+  - command:
+    - postgres
+    env:
+    - name: PATH
+      value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/lib/postgresql/13/bin
+    - name: TERM
+      value: xterm
+    - name: container
+      value: podman
+    - name: PG_MAJOR
+      value: "13"
+    - name: PG_VERSION
+      value: 13.2-1.pgdg100+1
+    - name: GOSU_VERSION
+      value: "1.12"
+    - name: LANG
+      value: en_US.utf8
+    - name: POSTGRES_USER
+      value: effective-dollop
+    - name: PGDATA
+      value: /var/lib/postgresql/data
+    - name: POSTGRES_PASSWORD
+      value: 6qPBHgUctMJ9uy
+    - name: HOSTNAME
+      value: effective-dollop
+    image: docker.io/library/postgres:latest
+    name: effective-dollop-db
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      capabilities:
+        drop:
+        - CAP_MKNOD
+        - CAP_NET_RAW
+        - CAP_AUDIT_WRITE
+      privileged: false
+      readOnlyRootFilesystem: false
+      seLinuxOptions: {}
+    volumeMounts:
+    - mountPath: /var/lib/postgresql/data
+      name: home-lpegoraro-Projects-storage-effective-dollop
+    workingDir: /
+  restartPolicy: Never
+  volumes:
+  - hostPath:
+      path: /home/lpegoraro/Projects/storage/effective-dollop
+      type: Directory
+    name: home-lpegoraro-Projects-storage-effective-dollop
+status: {}
+---
+metadata:
+  creationTimestamp: null
+spec: {}
+status:
+  loadBalancer: {}
+
